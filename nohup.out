@@ -1,0 +1,6 @@
+2023-07-16 13:04:38.747:INFO:oejs.Server:jetty-8.y.z-SNAPSHOT
+2023-07-16 13:04:38.859:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:8081
+License Server started at http://localhost:8081
+JetBrains Activation address was: http://localhost:8081/
+JRebel 7.1 and earlier version Activation address was: http://localhost:8081/{tokenname}, with any email.
+JRebel 2018.1 and later version Activation address was: http://localhost:8081/{guid}(eg:http://localhost:8081/a68a47fc-bcdc-4954-8f44-52d06bdea8f6), with any email.

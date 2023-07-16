@@ -27,7 +27,8 @@ class CouponServiceTest {
         assertThat(count).isEqualTo(1);
     }
 
-    @Test //레이스컨디션 발생
+    @Test
+    //레이스컨디션 발생
     void 동시_여러개_생성() throws InterruptedException {
         int threadCount = 1000;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
@@ -38,8 +39,7 @@ class CouponServiceTest {
             executorService.submit(() -> {
                 try {
                     couponService.save(userId);
-                }
-                finally {
+                } finally {
                     countDownLatch.countDown();
                 }
             });
@@ -47,8 +47,36 @@ class CouponServiceTest {
 
         countDownLatch.await();
 
+        Thread.sleep(10000);
+
         long count = couponRepository.count();
 
         assertThat(count).isEqualTo(100);
+    }
+
+    @Test
+    void 한명당_한개_생성() throws InterruptedException {
+        int threadCount = 1000;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            //long userId = i;
+            executorService.submit(() -> {
+                try {
+                    couponService.save(1l);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+
+        countDownLatch.await();
+
+        Thread.sleep(10000);
+
+        long count = couponRepository.count();
+
+        assertThat(count).isEqualTo(1);
     }
 }
